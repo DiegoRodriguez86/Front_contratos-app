@@ -8,6 +8,7 @@ import { resetUser, setUser } from '../../../store/modules/user.module';
 import { showAlert, hideAlert } from '../../../store/modules/alert';
 import { AxiosError } from 'axios';
 import { validateToken } from '../../../../domain/use-cases/auth/login/validateToken.use.cases';
+import { handleLogin, handleLogOut } from '../../../store/modules/sidebar';
 
 export const useAuthStore = () => {
 
@@ -22,18 +23,14 @@ export const useAuthStore = () => {
         dispatch(startLoading());
         try {
             const response: ILoginResponse = await authenticate(object);
-            localStorage.setItem('nombrUsuario', response.resultado.nombre);
-            localStorage.setItem('email', response.resultado.email);
-            localStorage.setItem('isLogged', 'true');
-            localStorage.setItem('token', response.resultado.token);
-            localStorage.setItem('token-init-date', new Date().getTime().toString());
             dispatch(setUser(response.resultado));
+            dispatch(handleLogin());
             dispatch(stopLoading());
 
         } catch (error: unknown) {
-            localStorage.clear();
             dispatch(stopLoading());
             dispatch(resetUser());
+            dispatch(handleLogOut());
             if (error instanceof AxiosError && error.response) {
                 dispatch(showAlert({ type: 'error', message: error.response.data.mensaje }));
                 setTimeout(() => {
@@ -46,20 +43,20 @@ export const useAuthStore = () => {
     const checkAuthToken = async () => {
         const token: string | null = localStorage.getItem('token');
         if (!token) {
-            localStorage.clear();
             dispatch(resetUser());
+            dispatch(handleLogOut());
         }
         else {
             try {
                 const { resultado } = await validate(token);
                 if (!resultado) {
-                    localStorage.clear();
                     dispatch(resetUser());
+                    dispatch(handleLogOut());
                 }
             }
             catch (error: unknown) {
-                localStorage.clear();
                 dispatch(resetUser());
+                dispatch(handleLogOut());
             }
         }
     };

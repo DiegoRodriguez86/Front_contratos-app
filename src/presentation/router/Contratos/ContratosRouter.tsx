@@ -7,9 +7,11 @@ export const ContratosRouter = () => {
     return (
         <Layout>
             <Routes>
-                <Route path="/" element={<Home/>}/>
+                <>
+                <Route path="/home" element={<Home/>}/>
                 <Route path="/usuarios" element={<Usuarios/>}/>
-                <Route path="*" element={<Navigate to="/"/>}/>
+                <Route path="/*" element={<Navigate to="/home"/>}/>
+                </>
             </Routes>
         </Layout>
     );

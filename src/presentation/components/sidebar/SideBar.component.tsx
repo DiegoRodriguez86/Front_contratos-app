@@ -33,7 +33,7 @@ export const SideBar = () => {
                             title="Home"
                             icon={<TiHomeOutline />}
                             isActive={menuSelected.homeMenu}
-                            url="/"
+                            url="/home"
                         />
                         <SideBarMenu title="Menu">
                             <CollapseItem

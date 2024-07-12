@@ -1,6 +1,10 @@
 import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, NavbarItem } from '@nextui-org/react';
+import { useAuthNavBar } from '../../hooks/components/navbar/useNavBar.hook';
 
 export const UserDropDown = () => {
+
+    const {logout} = useAuthNavBar();
+
     return (
         <Dropdown className="dark">
             <NavbarItem>
@@ -17,7 +21,7 @@ export const UserDropDown = () => {
                         key='logout'
                         color='danger'
                         className='text-danger'
-                        onPress={() => { }}>
+                        onPress={logout}>
                         Log Out
                     </DropdownItem>
             </DropdownMenu>

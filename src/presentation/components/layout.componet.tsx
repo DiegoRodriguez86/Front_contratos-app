@@ -5,7 +5,7 @@ import { NavBarWrapper } from './navbar/NavBarWrapper.component';
 
 
 
-interface Props{
+interface Props {
     children: React.ReactNode;
 }
 
@@ -21,7 +21,11 @@ export const Layout = ({ children }: Props) => {
         <SideBarContext.Provider value={{ collapsed: sidebarOpen, setCollapsed: handleToggleSidebar }}>
             <section className="flex">
                 <SideBar />
-                <NavBarWrapper>{children}</NavBarWrapper>
+                <NavBarWrapper>
+                    <main style={{ minHeight: 'calc(100vh - 250px) ' }}>
+                        {children}
+                    </main>
+                </NavBarWrapper>
             </section>
         </SideBarContext.Provider>
     );

@@ -26,8 +26,7 @@ export const AppRoter = () => {
           )
           : (
             <>
-              <Route path='/' element={<ContratosRouter />} />
-              <Route path="/*" element={<Navigate to="/" />} />
+              <Route path='/*' element={<ContratosRouter />} />
             </>
           )
       }
