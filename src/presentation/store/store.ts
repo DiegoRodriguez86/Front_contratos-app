@@ -5,11 +5,12 @@ import { loadingSlice } from './modules/loading';
 import { alertSlice } from './modules/alert';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
+import { tableSlice } from './modules/table.module';
 
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user','sidebar'],
+    whitelist: ['user','sidebar', 'table'],
     version: 1,
 };
 
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     user: userSlice.reducer,
     loading: loadingSlice.reducer,
     alert: alertSlice.reducer,
+    table: tableSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestHeaders, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 
-
 interface IAxiosRequestConfig extends InternalAxiosRequestConfig { }
 
 interface IGetApiFunction<R> {

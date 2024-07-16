@@ -10,8 +10,15 @@ export const userSlice = createSlice({
 			state.name = action.payload.nombre;
 			state.token = action.payload.token;
 			state.isLogged = true;
+			localStorage.setItem('token', action.payload.token);
 		},
-		resetUser: (state) => ({ ...state, ...defaultValueUser }),
+		resetUser: (state) => {
+			state.email = '';
+			state.name = '';
+			state.token = '';
+			state.isLogged = false;
+			localStorage.removeItem('token');
+		}
 	},
 });
 
