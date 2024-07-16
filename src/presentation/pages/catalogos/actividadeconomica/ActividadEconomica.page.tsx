@@ -1,18 +1,20 @@
 import { Button, getKeyValue, Spinner, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, useDisclosure } from '@nextui-org/react';
-import { LayoutCatalogos } from '../../../components/catalogos/LayoutCatalogos';
-import { useUsuariosStore } from '../../../hooks/pages/catalogos/usuarios/useUsuariosStore.hook';
-import { useCallback, useEffect, useState } from 'react';
-import { TiPlus, TiTrash } from 'react-icons/ti';
-import { ModalAgregarUsuario } from '../../../components/catalogos/usuario/ModalAgregarUsuario';
+import { useActividadEconomicaStore } from '../../../hooks/pages/catalogos/actividadeconomica/useActividadEconomica.hook';
 import { useAlertStore } from '../../../hooks/pages/alert/useAlertStore.hook';
+import { useCallback, useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
-import { IUsuario } from '../../../../domain/models/app/usuarios/usuario.model';
-import { ModalEliminarUsuario } from '../../../components/catalogos/usuario/ModalEliminarUsuario';
+import { TiPlus, TiTrash } from 'react-icons/ti';
+import { IActividadEconomica } from '../../../../domain/models/app/actividadeconomica/actividadEconomica.model';
+import { LayoutCatalogos } from '../../../components/catalogos/LayoutCatalogos';
+import { ModalEliminarActividadEconomica } from '../../../components/catalogos/actividadeconomica/ModalEliminarActividadEconomica';
+import { ModalAgregarActividadEconomica } from '../../../components/catalogos/actividadeconomica/ModalAgregarActividadEconomica';
 
-export const Usuarios = () => {
+
+export const ActividadEconomica = () => {
+
     const { isOpen: agregarIsOpen, onOpen: agregatOnOpen, onOpenChange: AgregarOnOpenChange, onClose: agregarOnClose } = useDisclosure();
     const { isOpen: eliminarIsOpen, onOpen: eliminarOnOpen, onOpenChange: eliminarOnOpenChange, onClose: eliminarOnClose } = useDisclosure();
-    const { name, info, isLoading, rehydrated, getUsuariosList } = useUsuariosStore();
+    const { name, info, isLoading, rehydrated, getActividadEconomicaList } = useActividadEconomicaStore();
     const { type, message, visible } = useAlertStore();
 
     useEffect(() => {
@@ -26,11 +28,11 @@ export const Usuarios = () => {
     }, [visible]);
 
     useEffect(() => {
-        getUsuariosList();
+        getActividadEconomicaList();
     }, []);
 
     useEffect(() => {
-        getUsuariosList();
+        getActividadEconomicaList();
     }, [rehydrated]);
 
     const loadingState = isLoading ? 'loading' : 'idle';
@@ -41,20 +43,20 @@ export const Usuarios = () => {
         </Button>
     );
 
-    const [idUserSlect, setIdUserSlect] = useState(0);
+    const [idActividadSelect, setIdActividadSelect] = useState(0);
 
-    const handleDeleteUser = (userId: number) => {
-        setIdUserSlect(userId);
+    const handleDeleteActividad = (actividadId: number) => {
+        setIdActividadSelect(actividadId);
         eliminarOnOpen();
     };
 
-    const renderCell = useCallback((item: IUsuario, columnKey: string | number) => {
+    const renderCell = useCallback((item: IActividadEconomica, columnKey: string | number) => {
         const cellValue = getKeyValue(item, columnKey);
         switch (columnKey) {
             case 'actions':
                 return (
                     <div className="flex gap-4 items-center">
-                        <Button onPress={() => handleDeleteUser(item.userId)} isIconOnly={true} variant='ghost' color='danger' aria-label='Eliminar'>
+                        <Button onPress={() => handleDeleteActividad(item.actividadEconomicaId)} isIconOnly={true} variant='ghost' color='danger' aria-label='Eliminar'>
                             <TiTrash />
                         </Button>
                     </div>
@@ -66,43 +68,32 @@ export const Usuarios = () => {
 
     return (
         <LayoutCatalogos title={name.toUpperCase()} buttonAdd={butoonAdd}>
-            <div className="flex justify-center items-center max-h-screen">
+            <div className='flex justify-center items-center max-h-screen'>
                 <Table
                     isHeaderSticky
-                    aria-label='Usuarios registrados'
+                    aria-label='Actividades Economicas'
                 >
                     <TableHeader>
-                        <TableColumn key="userId">
-                            Id
-                        </TableColumn>
-                        <TableColumn key="usuario">
-                            Usuario
-                        </TableColumn>
-                        <TableColumn key="correo" >
-                            Correo
-                        </TableColumn>
-                        <TableColumn key="fechaCaptura">
-                            Fecha de captura
-                        </TableColumn>
-                        <TableColumn key="actions">
-                            Acciones
-                        </TableColumn>
+                        <TableColumn key="actividadEconomicaId">Id</TableColumn>
+                        <TableColumn key="actividadEconomica">Actividad</TableColumn>
+                        <TableColumn key="fechaCaptura">Fecha de captura</TableColumn>
+                        <TableColumn key="actions">Acciones</TableColumn>
                     </TableHeader>
                     <TableBody
                         items={info ?? []}
                         loadingContent={<Spinner />}
                         loadingState={loadingState}
                     >
-                        {(item:IUsuario) => (
-                            <TableRow key={item.userId}>
+                        {(item:IActividadEconomica) => (
+                            <TableRow key={item.actividadEconomicaId}>
                                 {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
                             </TableRow>
                         )}
                     </TableBody>
                 </Table>
             </div>
-            <ModalEliminarUsuario isOpen={eliminarIsOpen} onOpenChange={eliminarOnOpenChange} onClose={eliminarOnClose} idUser={idUserSlect} />
-            <ModalAgregarUsuario isOpen={agregarIsOpen} onOpenChange={AgregarOnOpenChange} onClose={agregarOnClose} />
+            <ModalEliminarActividadEconomica isOpen={eliminarIsOpen} onOpenChange={eliminarOnOpenChange} onClose={eliminarOnClose} idActividadEconomica={idActividadSelect} />
+            <ModalAgregarActividadEconomica isOpen={agregarIsOpen} onOpenChange={AgregarOnOpenChange} onClose={agregarOnClose} />
         </LayoutCatalogos>
     );
 };

@@ -25,7 +25,7 @@ export const usuarioCase = () => {
 
     const deleteUsuario = async (userId: number): Promise<IAddUsuarioResponse> => {
         
-        const { data } = await instance.delete<IAddUsuarioResponse>(`${DELETE}/${userId}`, {});
+        const { data } = await instance.delete<IAddUsuarioResponse>(`${DELETE}/${userId}`, {data: {userId}});
         return data;
     };
 

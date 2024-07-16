@@ -11,7 +11,6 @@ import { hideAlert, showAlert } from '../../../../store/modules/alert';
 
 export const useUsuariosStore = () => {
 
-
     const { name, info, rehydrated }: ITableCatalog = useSelector((state: any) => state.table);
     const { isLoading } = useSelector((state: any) => state.loading);
 

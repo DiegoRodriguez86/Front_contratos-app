@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem } from '@nextui-org/react';
+import { Accordion, AccordionItem, Spacer } from '@nextui-org/react';
 import { TiArrowSortedUp } from 'react-icons/ti';
 import { ICollapseItem } from '../../interfaces/components/collapse-item.interface';
 import { Link } from 'react-router-dom';
@@ -17,15 +17,15 @@ interface Props {
 
 export const CollapseItem = ({ icon, items, title, isActive }: Props) => {
 
-const { setActiveMenu } = useMenuSideBar();
-const { setCollapsed } = useSideBarContext();
+    const { setActiveMenu } = useMenuSideBar();
+    const { setCollapsed } = useSideBarContext();
 
-const handleClick = () => {
-    setActiveMenu(title);
-    if (window.innerWidth < 768) {
-        setCollapsed();
-      }
-};
+    const handleClick = () => {
+        setActiveMenu(title);
+        if (window.innerWidth < 768) {
+            setCollapsed();
+        }
+    };
 
     return (
         <div className='flex gap-4 h-full items-center cursor-pointer'>
@@ -52,18 +52,21 @@ const handleClick = () => {
                 >
                     <div className="pl-12">
                         {items.map((item) => (
-                            <Link 
-                            to={item.url} 
-                            key={item.url}
-                            onClick={handleClick}
-                            >
-                                <span
-                                    key={item.nombre}
-                                    className="w-full flex  text-default-500 hover:text-default-900 transition-colors"
+                            <>
+                                <Link
+                                    to={item.url}
+                                    key={item.url}
+                                    onClick={handleClick}
                                 >
-                                    {item.nombre}
-                                </span>
-                            </Link>
+                                    <span
+                                        key={item.nombre}
+                                        className="w-full flex  text-default-500 hover:text-default-900 transition-colors"
+                                    >
+                                        {item.nombre}
+                                    </span>
+                                </Link>
+                                <Spacer y={2} />
+                            </>
                         ))}
                     </div>
                 </AccordionItem>
