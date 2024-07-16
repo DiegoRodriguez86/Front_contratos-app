@@ -7,5 +7,10 @@ export const URL = {
         GET: 'User',
         POST: 'User',
         DELETE: 'User',
+    },
+    ACTIVIDAD_ECONOMICA:{
+        GET: 'ActividadEconomica',
+        POST: 'ActividadEconomica',
+        DELETE: 'ActividadEconomica',
     }
 };

@@ -17,7 +17,7 @@ export const tableSlice = createSlice({
             state.rehydrated = false;
         },
         saveElemet:(state) => {
-            state.rehydrated = true;
+            state.rehydrated = !state.rehydrated;
         }
     },
 });
