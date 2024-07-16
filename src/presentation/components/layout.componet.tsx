@@ -22,7 +22,7 @@ export const Layout = ({ children }: Props) => {
             <section className="flex">
                 <SideBar />
                 <NavBarWrapper>
-                    <main style={{ minHeight: 'calc(100vh - 250px) ' }}>
+                    <main className='bg-black' style={{ minHeight: 'calc(100vh - 250px) ' }}>
                         {children}
                     </main>
                 </NavBarWrapper>

@@ -41,23 +41,17 @@ export const useAuthStore = () => {
     };
 
     const checkAuthToken = async () => {
-        const token: string | null = localStorage.getItem('token');
-        if (!token) {
-            dispatch(resetUser());
-            dispatch(handleLogOut());
-        }
-        else {
-            try {
-                const { resultado } = await validate(token);
-                if (!resultado) {
-                    dispatch(resetUser());
-                    dispatch(handleLogOut());
-                }
-            }
-            catch (error: unknown) {
+        try {
+            if (!token) { dispatch(resetUser()); dispatch(handleLogOut()); }
+            const { resultado } = await validate(token);
+            if (!resultado) {
                 dispatch(resetUser());
                 dispatch(handleLogOut());
             }
+        }
+        catch (error: unknown) {
+            dispatch(resetUser());
+            dispatch(handleLogOut());
         }
     };
 
