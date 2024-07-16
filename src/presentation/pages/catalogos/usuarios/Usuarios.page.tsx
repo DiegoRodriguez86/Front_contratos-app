@@ -1,15 +1,17 @@
 import { Button, getKeyValue, Spinner, Table, TableBody, TableCell, TableColumn, TableHeader, TableRow, useDisclosure } from '@nextui-org/react';
 import { LayoutCatalogos } from '../../../components/catalogos/LayoutCatalogos';
 import { useUsuariosStore } from '../../../hooks/pages/catalogos/usuarios/useUsuariosStore.hook';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { TiPlus, TiTrash } from 'react-icons/ti';
 import { ModalAgregarUsuario } from '../../../components/catalogos/usuario/ModalAgregarUsuario';
 import { useAlertStore } from '../../../hooks/pages/alert/useAlertStore.hook';
 import Swal from 'sweetalert2';
 import { IUsuario } from '../../../../domain/models/app/usuarios/usuario.model';
+import { ModalEliminarUsuario } from '../../../components/catalogos/usuario/ModalEliminarUsuario';
 
 export const Usuarios = () => {
-    const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+    const { isOpen: agregarIsOpen, onOpen: agregatOnOpen, onOpenChange: AgregarOnOpenChange, onClose: agregarOnClose } = useDisclosure();
+    const { isOpen: eliminarIsOpen, onOpen: eliminarOnOpen, onOpenChange: eliminarOnOpenChange, onClose: eliminarOnClose } = useDisclosure();
     const { name, info, isLoading, rehydrated, getUsuariosList } = useUsuariosStore();
     const { type, message, visible } = useAlertStore();
 
@@ -34,10 +36,17 @@ export const Usuarios = () => {
     const loadingState = isLoading ? 'loading' : 'idle';
 
     const butoonAdd = (
-        <Button onPress={onOpen} color="primary" variant="ghost" startContent={<TiPlus />} isLoading={isLoading}>
+        <Button onPress={agregatOnOpen} color="primary" variant="ghost" startContent={<TiPlus />} isLoading={isLoading}>
             Agregar
         </Button>
     );
+
+    const [idUserSlect, setIdUserSlect] = useState(0);
+
+    const handleDeleteUser = (userId: number) => {
+        setIdUserSlect(userId);
+        eliminarOnOpen();
+    };
 
     const renderCell = useCallback((item: IUsuario, columnKey: string | number) => {
         const cellValue = getKeyValue(item, columnKey);
@@ -45,7 +54,7 @@ export const Usuarios = () => {
             case 'actions':
                 return (
                     <div className="flex gap-4 items-center">
-                        <Button isIconOnly={true} variant='ghost' color='danger' aria-label='Eliminar'>
+                        <Button onPress={() => handleDeleteUser(item.userId)} isIconOnly={true} variant='ghost' color='danger' aria-label='Eliminar'>
                             <TiTrash />
                         </Button>
                     </div>
@@ -92,7 +101,8 @@ export const Usuarios = () => {
                     </TableBody>
                 </Table>
             </div>
-            <ModalAgregarUsuario isOpen={isOpen} onOpenChange={onOpenChange} onClose={onClose} />
+            <ModalEliminarUsuario isOpen={eliminarIsOpen} onOpenChange={eliminarOnOpenChange} onClose={eliminarOnClose} idUser={idUserSlect} />
+            <ModalAgregarUsuario isOpen={agregarIsOpen} onOpenChange={AgregarOnOpenChange} onClose={agregarOnClose} />
         </LayoutCatalogos>
     );
 };

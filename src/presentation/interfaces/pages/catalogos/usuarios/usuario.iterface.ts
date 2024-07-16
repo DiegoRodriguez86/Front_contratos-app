@@ -5,6 +5,10 @@ export type UsuarioFormType = {
 
 }
 
+export type UsuarioDeleteType = {
+    userId: number;
+}
+
 export type UsuarioType = {
     userId: number;
     usuario: string;

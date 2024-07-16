@@ -5,7 +5,7 @@ import { startLoading, stopLoading } from '../../../../store/modules/loading';
 import { IAddUsuarioResponse, IUsuarioResponse } from '../../../../../domain/models/app/usuarios/usuario.model';
 import { setTable, resetTable, saveElemet } from '../../../../store/modules/table.module';
 import { UsuarioFormType } from '../../../../interfaces/pages/catalogos/usuarios/usuario.iterface';
-import { showAlert } from '../../../../store/modules/alert';
+import { hideAlert, showAlert } from '../../../../store/modules/alert';
 
 
 
@@ -16,7 +16,7 @@ export const useUsuariosStore = () => {
     const { isLoading } = useSelector((state: any) => state.loading);
 
     const dispatch = useDispatch();
-    const { getUsuarios, addUsuario } = usuarioCase();
+    const { getUsuarios, addUsuario, deleteUsuario } = usuarioCase();
 
     const getUsuariosList = async () => {
         dispatch(startLoading());
@@ -30,25 +30,47 @@ export const useUsuariosStore = () => {
         }
     };
 
-const addUsuarioList = async (request: UsuarioFormType) => {
-    dispatch(startLoading());
-    try {
-        const response: IAddUsuarioResponse = await addUsuario(request);
-        if (response.estatus==='Ok')
-        {
-        dispatch(showAlert({ type: 'success', message: response.mensaje }));
+    const addUsuarioList = async (request: UsuarioFormType) => {
+        dispatch(startLoading());
+        try {
+            const response: IAddUsuarioResponse = await addUsuario(request);
+            if (response.estatus === 'Ok') {
+                dispatch(showAlert({ type: 'success', message: response.mensaje }));
+            }
+            else {
+                dispatch(showAlert({ type: 'warning', message: response.mensaje }));
+            }
+            dispatch(saveElemet());
+            dispatch(stopLoading());
+            setTimeout(() => {dispatch(hideAlert());}, 1000);
         }
-        else {
-            dispatch(showAlert({ type: 'warning', message: response.mensaje }));
+        catch (error: unknown) {
+            dispatch(showAlert({ type: 'error', message: 'Error al agregar usuario' }));
+            dispatch(stopLoading());
+            setTimeout(() => {dispatch(hideAlert());}, 1000);
         }
-        dispatch(saveElemet());
-        dispatch(stopLoading());
-    }
-    catch (error: unknown){
-        dispatch(showAlert({ type: 'error', message: 'Error al agregar usuario' }));
-        dispatch(stopLoading());
-    }
-};
+    };
+
+    const deleteUsuarioList = async (userId: number) => {
+        dispatch(startLoading());
+        try {
+            const response: IAddUsuarioResponse = await deleteUsuario(userId);
+            if (response.estatus === 'Ok') {
+                dispatch(showAlert({ type: 'success', message: response.mensaje }));
+            }
+            else {
+                dispatch(showAlert({ type: 'warning', message: response.mensaje }));
+            }
+            dispatch(saveElemet());
+            dispatch(stopLoading());
+            setTimeout(() => {dispatch(hideAlert());}, 1000);
+        }
+        catch (error: unknown) {
+            dispatch(showAlert({ type: 'error', message: 'Error al eliminar usuario' }));
+            dispatch(stopLoading());
+            setTimeout(() => {dispatch(hideAlert());}, 1000);
+        }
+    };
 
 
     return {
@@ -61,5 +83,6 @@ const addUsuarioList = async (request: UsuarioFormType) => {
         //* Functions
         getUsuariosList,
         addUsuarioList,
+        deleteUsuarioList,
     };
 };

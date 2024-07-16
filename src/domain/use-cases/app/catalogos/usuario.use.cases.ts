@@ -6,7 +6,7 @@ import { IAddUsuarioResponse, IUsuarioResponse, IAddUsuarioRequest } from '../..
 
 
 export const usuarioCase = () => {
-    const { GET, POST } = URL.USUARIOS;
+    const { GET, POST, DELETE } = URL.USUARIOS;
 
     const getUsuarios = async (): Promise<IUsuarioResponse> => {
         const { data } = await instance.get<IUsuarioResponse>(GET);
@@ -23,8 +23,15 @@ export const usuarioCase = () => {
         return data;
     };
 
+    const deleteUsuario = async (userId: number): Promise<IAddUsuarioResponse> => {
+        
+        const { data } = await instance.delete<IAddUsuarioResponse>(`${DELETE}/${userId}`, {});
+        return data;
+    };
+
     return {
         getUsuarios,
-        addUsuario
+        addUsuario,
+        deleteUsuario,
     };
 };

@@ -6,6 +6,6 @@ export const URL = {
     USUARIOS:{
         GET: 'User',
         POST: 'User',
-        DELETE: 'User/',
+        DELETE: 'User',
     }
 };
