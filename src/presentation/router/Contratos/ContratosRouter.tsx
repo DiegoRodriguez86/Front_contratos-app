@@ -6,6 +6,7 @@ import { ActividadEconomica } from '../../pages/catalogos/actividadeconomica/Act
 import { ActividadImss } from '../../pages/catalogos/actividadimss/ActividadImss.page';
 import { Bancos } from '../../pages/catalogos/banco/Banco.page';
 import { Cargos } from '../../pages/catalogos/cargo/Cargo.page';
+import { CargosSociedad } from '../../pages/catalogos/cargosociedad/CargoSociedad.page';
 
 export const ContratosRouter = () => {
     return (
@@ -18,6 +19,7 @@ export const ContratosRouter = () => {
                 <Route path='/actividadimss' element={<ActividadImss/>}/>
                 <Route path='/banco' element={<Bancos/>}/>
                 <Route path='/cargo' element={<Cargos/>}/>
+                <Route path='/cargosociedad' element={<CargosSociedad/>}/>
                 <Route path="/*" element={<Navigate to="/home"/>}/>
                 </>
             </Routes>

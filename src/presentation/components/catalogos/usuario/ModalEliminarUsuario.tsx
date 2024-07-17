@@ -26,8 +26,8 @@ const handleDelete = (values: UsuarioDeleteType) => {
             <ModalBody>
             </ModalBody>
             <ModalFooter>
-                <Button color='danger' variant='ghost' onClick={onClose} disabled={isLoading}>Cancelar</Button>
-                <Button color='primary' variant='ghost' onClick={() => handleDelete({userId: idUser})} disabled={isLoading}>Eliminar</Button>
+                <Button color='danger' variant='ghost' onClick={onClose} isLoading={isLoading}>Cancelar</Button>
+                <Button color='primary' variant='ghost' onClick={() => handleDelete({userId: idUser})} isLoading={isLoading}>Eliminar</Button>
             </ModalFooter>
         </ModalContent>
     </Modal>
