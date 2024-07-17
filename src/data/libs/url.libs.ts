@@ -17,5 +17,10 @@ export const URL = {
         GET: 'ActividadIMSS',
         POST: 'ActividadIMSS',
         DELETE: 'ActividadIMSS',
-    }
+    },
+    BANCO:{
+        GET: 'Banco',
+        POST: 'Banco',
+        DELETE: 'Banco',
+    },
 };
