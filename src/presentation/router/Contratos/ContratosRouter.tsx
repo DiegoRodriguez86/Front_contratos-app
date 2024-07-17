@@ -3,6 +3,7 @@ import { Layout } from '../../components/layout.componet';
 import { Home } from '../../pages/home/Home.page';
 import { Usuarios } from '../../pages/catalogos/usuarios/Usuarios.page';
 import { ActividadEconomica } from '../../pages/catalogos/actividadeconomica/ActividadEconomica.page';
+import { ActividadImss } from '../../pages/catalogos/actividadimss/ActividadImss.page';
 
 export const ContratosRouter = () => {
     return (
@@ -12,6 +13,7 @@ export const ContratosRouter = () => {
                 <Route path="/home" element={<Home/>}/>
                 <Route path="/usuarios" element={<Usuarios/>}/>
                 <Route path="/actividadeconomica" element={<ActividadEconomica/>}/>
+                <Route path='/actividadimss' element={<ActividadImss/>}/>
                 <Route path="/*" element={<Navigate to="/home"/>}/>
                 </>
             </Routes>
