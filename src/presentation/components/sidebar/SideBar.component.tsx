@@ -10,7 +10,8 @@ import { useMenuSideBar } from '../../hooks/components/sidebar/useMenuSideBar.ho
 const collapseItems: ICollapseItem[] = [
     { nombre: 'Usuarios', url: '/usuarios' },
     { nombre: 'Actividad Economica', url: '/actividadeconomica' },
-    { nombre: 'Actividad IMSS', url: '/actividadimss'}
+    { nombre: 'Actividad IMSS', url: '/actividadimss'},
+    { nombre: 'Banco', url: '/banco' }
 ];
 
 export const SideBar = () => {
