@@ -27,5 +27,10 @@ export const URL = {
         GET: 'Cargo',
         POST: 'Cargo',
         DELETE: 'Cargo',
-    }
+    },
+    CARGO_SOCIEDAD:{
+        GET: 'CargoSociedad',
+        POST: 'CargoSociedad',
+        DELETE: 'CargoSociedad',
+    },
 };
