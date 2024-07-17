@@ -23,4 +23,9 @@ export const URL = {
         POST: 'Banco',
         DELETE: 'Banco',
     },
+    CARGO:{
+        GET: 'Cargo',
+        POST: 'Cargo',
+        DELETE: 'Cargo',
+    }
 };
