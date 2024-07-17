@@ -12,5 +12,10 @@ export const URL = {
         GET: 'ActividadEconomica',
         POST: 'ActividadEconomica',
         DELETE: 'ActividadEconomica',
+    },
+    ACTIVIDAD_IMSS:{
+        GET: 'ActividadIMSS',
+        POST: 'ActividadIMSS',
+        DELETE: 'ActividadIMSS',
     }
 };
