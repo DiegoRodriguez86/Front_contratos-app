@@ -33,4 +33,9 @@ export const URL = {
         POST: 'CargoSociedad',
         DELETE: 'CargoSociedad',
     },
+    ESTADO_EMPRESA:{
+        GET: 'EstadoEmpresa',
+        POST: 'EstadoEmpresa',
+        DELETE: 'EstadoEmpresa',
+    }
 };
