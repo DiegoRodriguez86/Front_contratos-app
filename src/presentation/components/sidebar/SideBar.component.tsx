@@ -14,6 +14,7 @@ const collapseItems: ICollapseItem[] = [
     { nombre: 'Banco', url: '/banco' },
     { nombre: 'Cargo', url: '/cargo'},
     { nombre: 'Cargo Sociedad', url: '/cargosociedad'},
+    { nombre: 'Estado Empresa', url: '/estadoempresa'},
 ];
 
 export const SideBar = () => {
